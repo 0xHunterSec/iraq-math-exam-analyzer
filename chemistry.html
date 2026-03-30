@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ثوابت الكيمياء — ثالث متوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-bottom: 2px solid #334155;
+  padding: 24px 16px 20px;
+  text-align: center;
+}
+.header-emoji { font-size: 40px; display: block; margin-bottom: 8px; }
+header h1 { font-size: 26px; font-weight: 900; color: #f1f5f9; }
+header p { font-size: 13px; color: #64748b; margin-top: 4px; }
+
+/* TABS */
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: #1e293b;
+  border-bottom: 2px solid #334155;
+  position: sticky; top: 0; z-index: 99;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 13px 20px;
+  font-size: 13px; font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  color: #64748b;
+  background: none; border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tab:hover { color: #94a3b8; }
+.tab.active { color: #38bdf8; border-bottom-color: #38bdf8; }
+
+/* CONTENT */
+main { max-width: 700px; margin: 0 auto; padding: 20px 14px 60px; }
+.page { display: none; }
+.page.active { display: block; }
+
+/* PAGE TITLE */
+.page-title {
+  font-size: 16px; font-weight: 900;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #1e293b;
+}
+
+/* ============ CARD ============ */
+.card {
+  background: #1e293b;
+  border-radius: 14px;
+  border: 1px solid #334155;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.card-title {
+  padding: 12px 16px 10px;
+  font-size: 14px; font-weight: 900;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-title .dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.card-body { padding: 0 16px 14px; }
+
+/* ROWS */
+.row {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 8px 0;
+  border-bottom: 1px solid #0f172a;
+  font-size: 14px; line-height: 1.7;
+}
+.row:last-child { border-bottom: none; }
+.row-key {
+  color: #94a3b8; font-weight: 700;
+  flex-shrink: 0; min-width: 110px;
+  font-size: 13px;
+}
+.row-val { color: #e2e8f0; flex: 1; }
+.row-val strong { color: #38bdf8; }
+.row-val .formula {
+  font-family: monospace; font-size: 13px;
+  background: #0f172a; border-radius: 6px;
+  padding: 2px 8px; color: #86efac;
+  display: inline-block; margin-top: 2px;
+  direction: ltr;
+}
+
+/* EQUATION CARD */
+.eq {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  padding: 12px 16px;
+}
+.eq-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 700;
+  padding: 2px 10px; border-radius: 100px;
+  margin-bottom: 8px;
+}
+.tag-burn { background: #431407; color: #fb923c; }
+.tag-combo { background: #052e16; color: #4ade80; }
+.tag-react { background: #1e1b4b; color: #a5b4fc; }
+.tag-detect { background: #1a1a2e; color: #e879f9; }
+.tag-decomp { background: #450a0a; color: #f87171; }
+
+.eq-formula {
+  font-family: monospace; font-size: 15px; font-weight: 700;
+  color: #38bdf8; direction: ltr; text-align: center;
+  background: #0f172a; border-radius: 8px;
+  padding: 10px 14px; letter-spacing: 0.5px;
+}
+.eq-note {
+  margin-top: 7px; font-size: 12px; color: #64748b;
+}
+
+/* TF CARD */
+.tf {
+  background: #1e293b; border: 1px solid #334155;
+  border-radius: 12px; margin-bottom: 10px;
+  padding: 12px 16px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.tf-icon {
+  width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0; font-weight: 900;
+}
+.tf-icon.t { background: #052e16; color: #4ade80; }
+.tf-icon.f { background: #450a0a; color: #f87171; }
+.tf-stmt { font-size: 14px; color: #cbd5e1; line-height: 1.7; }
+.tf-fix {
+  margin-top: 6px; font-size: 13px;
+  color: #86efac; background: #052e16;
+  border-radius: 7px; padding: 5px 10px;
+}
+.tf-fix.wrong { color: #fca5a5; background: #450a0a; }
+
+/* BLANK ROW */
+.blank {
+  background: #1e293b; border: 1px solid #334155;
+  border-radius: 10px; margin-bottom: 8px;
+  padding: 11px 14px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.blank-q { font-size: 14px; color: #94a3b8; flex: 1; line-height: 1.7; }
+.blank-q span { color: #fbbf24; font-weight: 700; }
+.blank-a {
+  flex-shrink: 0;
+  background: #0f172a; border-radius: 7px;
+  padding: 3px 12px; color: #38bdf8;
+  font-size: 13px; font-weight: 700;
+  min-width: 80px; text-align: center;
+  align-self: center;
+}
+
+/* SECTION LABEL */
+.sec-label {
+  font-size: 11px; font-weight: 900; letter-spacing: 2px;
+  color: #475569; text-transform: uppercase;
+  margin: 18px 0 10px; padding-right: 2px;
+}
+
+/* ALERT */
+.alert {
+  background: #1a2744; border: 1px solid #1d4ed8;
+  border-radius: 10px; padding: 11px 14px;
+  font-size: 13px; color: #93c5fd; margin-bottom: 14px;
+  display: flex; gap: 8px;
+}
+.alert-warn { background: #1c1407; border-color: #92400e; color: #fbbf24; }
+
+/* ELECTRON TABLE */
+.el-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.el-table th {
+  background: #0f172a; color: #64748b; font-weight: 700;
+  padding: 8px 10px; text-align: right;
+  border-bottom: 1px solid #334155;
+}
+.el-table td {
+  padding: 8px 10px; border-bottom: 1px solid #1e293b;
+  color: #cbd5e1;
+}
+.el-table tr:last-child td { border-bottom: none; }
+.el-table td:first-child { color: #38bdf8; font-weight: 700; }
+.el-table td:nth-child(3) { color: #86efac; font-family: monospace; font-size: 12px; direction: ltr; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <span class="header-emoji">⚗️</span>
+  <h1>ثوابت الكيمياء — ثالث متوسط</h1>
+  <p>اللي يتكرر كل سنة فقط • الدورات 2021 – 2025</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="show('eq')">المعادلات</button>
+  <button class="tab" onclick="show('electron')">الترتيب الإلكتروني</button>
+  <button class="tab" onclick="show('tf')">صح وخطأ</button>
+  <button class="tab" onclick="show('blanks')">الفراغات</button>
+  <button class="tab" onclick="show('facts')">ثوابت سريعة</button>
+</div>
+
+<main>
+
+<!-- ========== المعادلات ========== -->
+<div id="eq" class="page active">
+  <div class="page-title">⚗️ المعادلات الموزونة</div>
+
+  <div class="alert">
+    💡 هذي المعادلات تتكرر في كل دور — احفظها كاملة موزونة
+  </div>
+
+  <div class="sec-label">🔥 احتراق</div>
+
+  <div class="eq">
+    <div class="eq-tag tag-burn">احتراق</div>
+    <div class="eq-formula">SiH₄ + 2O₂ → SiO₂ + 2H₂O</div>
+    <div class="eq-note">احتراق السيلان — يشتعل تلقائياً في الهواء</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-burn">احتراق</div>
+    <div class="eq-formula">C₂H₄ + 3O₂ → 2CO₂ + 2H₂O</div>
+    <div class="eq-note">احتراق الإيثيلين</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-burn">احتراق</div>
+    <div class="eq-formula">C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O</div>
+    <div class="eq-note">احتراق الكحول الإيثيلي</div>
+  </div>
+
+  <div class="sec-label">⚡ اتحاد / تفاعل</div>
+
+  <div class="eq">
+    <div class="eq-tag tag-combo">اتحاد</div>
+    <div class="eq-formula">S + Fe →(△) FeS</div>
+    <div class="eq-note">كبريت + حديد = كبريتيد الحديد</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-combo">اتحاد</div>
+    <div class="eq-formula">N₂ + 3H₂ ⇌ 2NH₃</div>
+    <div class="eq-note">تحضير الأمونيا — طريقة هابر (Fe عامل مساعد)</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-combo">اتحاد</div>
+    <div class="eq-formula">CO₂ + 2NaOH → Na₂CO₃ + H₂O</div>
+    <div class="eq-note">CO₂ مع هيدروكسيد الصوديوم</div>
+  </div>
+
+  <div class="sec-label">🔄 إزاحة</div>
+
+  <div class="eq">
+    <div class="eq-tag tag-react">إزاحة</div>
+    <div class="eq-formula">2Al + Fe₂O₃ → Al₂O₃ + 2Fe</div>
+    <div class="eq-note">تفاعل الثرميت — ينتج حديد منصهر</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-react">إزاحة</div>
+    <div class="eq-formula">2Na + 2HCl → 2NaCl + H₂↑</div>
+    <div class="eq-note">صوديوم مع حمض الهيدروكلوريك</div>
+  </div>
+
+  <div class="sec-label">🔵 تعادل / أمفوتيري</div>
+
+  <div class="eq">
+    <div class="eq-tag tag-react">قاعدة</div>
+    <div class="eq-formula">Al(OH)₃ + 3HCl → AlCl₃ + 3H₂O</div>
+    <div class="eq-note">الألمنيوم يتصرف كقاعدة أمام الحامض</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-react">حامض</div>
+    <div class="eq-formula">Al(OH)₃ + NaOH → NaAlO₂ + 2H₂O</div>
+    <div class="eq-note">الألمنيوم يتصرف كحامض أمام القاعدة</div>
+  </div>
+
+  <div class="sec-label">🔬 تحلل</div>
+
+  <div class="eq">
+    <div class="eq-tag tag-decomp">تحلل</div>
+    <div class="eq-formula">2Al(OH)₃ →(△) Al₂O₃ + 3H₂O</div>
+    <div class="eq-note">تحلل هيدروكسيد الألمنيوم بالحرارة</div>
+  </div>
+
+  <div class="sec-label">🧪 كشف وتحضير</div>
+
+  <div class="eq">
+    <div class="eq-tag tag-detect">كشف</div>
+    <div class="eq-formula">H₂S + Pb(NO₃)₂ → PbS↓ + 2HNO₃</div>
+    <div class="eq-note">كشف الكبريتيدات — راسب أسود</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-detect">كشف</div>
+    <div class="eq-formula">H₂S + CuSO₄ → CuS↓ + H₂SO₄</div>
+    <div class="eq-note">كشف أيون النحاس — راسب أسود</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-detect">تحضير</div>
+    <div class="eq-formula">2NH₄Cl + Ca(OH)₂ →(△) CaCl₂ + 2NH₃↑ + 2H₂O</div>
+    <div class="eq-note">تحضير الأمونيا في المختبر</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-detect">تحضير</div>
+    <div class="eq-formula">C₂H₅OH →(H₂SO₄ / 170°C) C₂H₄ + H₂O</div>
+    <div class="eq-note">تحضير الإيثيلين من الكحول</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-combo">اتحاد</div>
+    <div class="eq-formula">SiO₂ + C →(△) SiC + CO₂</div>
+    <div class="eq-note">تحضير كاربيد السيليكون</div>
+  </div>
+
+  <div class="eq">
+    <div class="eq-tag tag-detect">تفاعل</div>
+    <div class="eq-formula">SiO₂ + 4HF → SiF₄ + 2H₂O</div>
+    <div class="eq-note">لماذا HF يُخزن في قوارير بلاستيك وليس زجاج؟</div>
+  </div>
+
+</div>
+
+<!-- ========== الترتيب الإلكتروني ========== -->
+<div id="electron" class="page">
+  <div class="page-title">⚛️ الترتيب الإلكتروني</div>
+
+  <div class="alert">
+    💡 العناصر الأكثر تكراراً في الامتحانات
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-body" style="padding-top:14px;">
+      <table class="el-table">
+        <thead>
+          <tr>
+            <th>العنصر / الرمز</th>
+            <th>ع. الذري</th>
+            <th>الترتيب الإلكتروني</th>
+            <th>الدورة</th>
+            <th>المجموعة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Na الصوديوم</td><td>11</td><td>1s² 2s² 2p⁶ 3s¹</td><td>3</td><td>IA</td></tr>
+          <tr><td>Mg المغنيسيوم</td><td>12</td><td>1s² 2s² 2p⁶ 3s²</td><td>3</td><td>IIA</td></tr>
+          <tr><td>Al الألمنيوم</td><td>13</td><td>1s² 2s² 2p⁶ 3s² 3p¹</td><td>3</td><td>IIIA</td></tr>
+          <tr><td>Si السيليكون</td><td>14</td><td>1s² 2s² 2p⁶ 3s² 3p²</td><td>3</td><td>IVA</td></tr>
+          <tr><td>P الفسفور</td><td>15</td><td>1s² 2s² 2p⁶ 3s² 3p³</td><td>3</td><td>VA</td></tr>
+          <tr><td>S الكبريت</td><td>16</td><td>1s² 2s² 2p⁶ 3s² 3p⁴</td><td>3</td><td>VIA</td></tr>
+          <tr><td>Cl الكلور</td><td>17</td><td>1s² 2s² 2p⁶ 3s² 3p⁵</td><td>3</td><td>VIIA</td></tr>
+          <tr><td>C الكربون</td><td>6</td><td>1s² 2s² 2p²</td><td>2</td><td>IVA</td></tr>
+          <tr><td>N النيتروجين</td><td>7</td><td>1s² 2s² 2p³</td><td>2</td><td>VA</td></tr>
+          <tr><td>Ca الكالسيوم</td><td>20</td><td>1s² 2s² 2p⁶ 3s² 3p⁶ 4s²</td><td>4</td><td>IIA</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec-label">📦 سعات المستويات</div>
+  <div class="card">
+    <div class="card-body" style="padding-top:14px;">
+      <div class="row"><div class="row-key">مستوى s</div><div class="row-val">مدار واحد → <strong>2 إلكترون</strong></div></div>
+      <div class="row"><div class="row-key">مستوى p</div><div class="row-val">3 مدارات → <strong>6 إلكترونات</strong></div></div>
+      <div class="row"><div class="row-key">مستوى d</div><div class="row-val">5 مدارات → <strong>10 إلكترونات</strong></div></div>
+      <div class="row"><div class="row-key">مستوى f</div><div class="row-val">7 مدارات → <strong>14 إلكتروناً</strong></div></div>
+    </div>
+  </div>
+
+  <div class="sec-label">📐 الترتيب من الأدنى للأعلى</div>
+  <div class="card">
+    <div class="card-body" style="padding-top:10px;">
+      <div class="row" style="direction:ltr; text-align:center; justify-content:center;">
+        <div class="row-val" style="text-align:center; font-family:monospace; font-size:13px; color:#38bdf8; line-height:2;">
+          1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d → 5p
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label">🔢 حساب الإلكترونات غير المزدوجة</div>
+  <div class="card">
+    <div class="card-body" style="padding-top:14px;">
+      <div class="row"><div class="row-key">Na (عدد 11)</div><div class="row-val">إلكترون غير مزدوج = <strong>1</strong> (في 3s¹)</div></div>
+      <div class="row"><div class="row-key">P (عدد 15)</div><div class="row-val">إلكترون غير مزدوج = <strong>3</strong> (في 3p³)</div></div>
+      <div class="row"><div class="row-key">S (عدد 16)</div><div class="row-val">إلكترون غير مزدوج = <strong>2</strong> (في 3p⁴)</div></div>
+      <div class="row"><div class="row-key">C (عدد 6)</div><div class="row-val">إلكترون غير مزدوج = <strong>2</strong> (في 2p²)</div></div>
+      <div class="row"><div class="row-key">N (عدد 7)</div><div class="row-val">إلكترون غير مزدوج = <strong>3</strong> (في 2p³)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== صح وخطأ ========== -->
+<div id="tf" class="page">
+  <div class="page-title">✅ صح وخطأ — المتكررة</div>
+
+  <div class="alert alert-warn">
+    ⚠️ عند الخطأ اكتب التصحيح — بدونه لا تأخذ الدرجة
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon f">✗</div>
+    <div>
+      <div class="tf-stmt">يُحضَّر حمض النتريك بطريقة <u>هابر</u></div>
+      <div class="tf-fix wrong">التصحيح: هابر لتحضير <strong>الأمونيا</strong> — حمض النتريك بطريقة <strong>أوستفالد</strong></div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon f">✗</div>
+    <div>
+      <div class="tf-stmt">مركبات الصوديوم تلوّن اللهب باللون <u>الأحمر</u></div>
+      <div class="tf-fix wrong">التصحيح: تلوّن اللهب باللون <strong>الأصفر (المشمشي)</strong></div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon f">✗</div>
+    <div>
+      <div class="tf-stmt">أغلب مركبات السيليكون تكون <u>أيونية</u></div>
+      <div class="tf-fix wrong">التصحيح: أغلب مركبات السيليكون <strong>تساهمية</strong></div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon f">✗</div>
+    <div>
+      <div class="tf-stmt">الأمونيا أثقل من الهواء</div>
+      <div class="tf-fix wrong">التصحيح: الأمونيا <strong>أخف</strong> من الهواء (كتلتها 17 &lt; 29)</div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon f">✗</div>
+    <div>
+      <div class="tf-stmt">"مشبع وغير مشبع" يصفان <u>تركيز</u> المحلول</div>
+      <div class="tf-fix wrong">التصحيح: يصفان <strong>قابلية الذوبان</strong> وليس التركيز</div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon t">✓</div>
+    <div>
+      <div class="tf-stmt">الألمنيوم فلز يقي نفسه من التآكل</div>
+      <div class="tf-fix">صحيح — تتكون عليه طبقة Al₂O₃ واقية</div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon t">✓</div>
+    <div>
+      <div class="tf-stmt">يتواجد غاز النيتروجين في الطبيعة بصيغة N₂</div>
+      <div class="tf-fix">صحيح — رابطة ثلاثية بين ذرتي N</div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon t">✓</div>
+    <div>
+      <div class="tf-stmt">الكبريت يمتلك الصيغة S₈ وهي من أنشط صوره</div>
+      <div class="tf-fix">صحيح</div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon t">✓</div>
+    <div>
+      <div class="tf-stmt">النيتروجين يشكّل حوالي 78% من الغلاف الجوي</div>
+      <div class="tf-fix">صحيح</div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon f">✗</div>
+    <div>
+      <div class="tf-stmt">حمض الهيدروفلوريك HF يُخزن في قوارير <u>زجاجية</u></div>
+      <div class="tf-fix wrong">التصحيح: يُخزن في قوارير <strong>بلاستيكية</strong> لأنه يتفاعل مع الزجاج (SiO₂)</div>
+    </div>
+  </div>
+
+  <div class="tf">
+    <div class="tf-icon f">✗</div>
+    <div>
+      <div class="tf-stmt">الصوديوم يُحفظ في الماء</div>
+      <div class="tf-fix wrong">التصحيح: يُحفظ في <strong>النفط (الكيروسين)</strong> لأنه يتفاعل مع الهواء والماء</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== الفراغات ========== -->
+<div id="blanks" class="page">
+  <div class="page-title">✏️ الفراغات المتكررة</div>
+
+  <div class="alert">
+    💡 الإجابة باللون الأزرق — خذها مباشرة
+  </div>
+
+  <div class="sec-label">متكررة من 2021 – 2025</div>
+
+  <div class="blank">
+    <div class="blank-q">عنصر الألمنيوم يتفاعل مع الحوامض والقواعد ويُفرز غازاً هو <span>___</span></div>
+    <div class="blank-a">H₂</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">سُمّيت عناصر الزمرة الأولى بـ <span>___</span></div>
+    <div class="blank-a">الفلزات القلوية</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">مستوى الطاقة الثانوي f يحتوي على <span>___</span> أوربيتالاً</div>
+    <div class="blank-a">7</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">سبيكة الديورالومين تحتوي على Al + <span>___ + ___ + ___</span></div>
+    <div class="blank-a">Cu + Mn + Mg</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">أكثر أنواع السيليكات شيوعاً واستعمالاً هي <span>___</span> القابلة للذوبان في الماء</div>
+    <div class="blank-a">سيليكات الصوديوم Na₂SiO₃</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">يُدعى محلول هيدروكسيد الكالسيوم الصافي بـ <span>___</span></div>
+    <div class="blank-a">ماء الجير الصافي</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">سلوك الألمنيوم مع الحوامض والقواعد يُسمى <span>___</span></div>
+    <div class="blank-a">السلوك الأمفوتيري</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">اكتشاف أيون Al³⁺ يعطي راسباً <span>___</span> من هيدروكسيد الألمنيوم</div>
+    <div class="blank-a">أبيض جيلاتيني</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">يُستعمل جل السيليكا بصورة رئيسة كعامل <span>___</span></div>
+    <div class="blank-a">مجفّف</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">عملية إحراق مسحوق الألمنيوم مع أكسيد الحديد الثالث تُسمى <span>___</span></div>
+    <div class="blank-a">الثرميت</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">الفرق بين الجبس العادي وجبس باريس: الجبس العادي CaSO₄·2H₂O أما جبس باريس <span>___</span></div>
+    <div class="blank-a">(CaSO₄)₂·H₂O</div>
+  </div>
+
+  <div class="blank">
+    <div class="blank-q">الفرق بين NaCl النقي وغير النقي: غير النقي <span>___</span> لأنه يحتوي على CaCl₂</div>
+    <div class="blank-a">يتميّأ</div>
+  </div>
+
+</div>
+
+<!-- ========== ثوابت سريعة ========== -->
+<div id="facts" class="page">
+  <div class="page-title">⭐ ثوابت سريعة</div>
+
+  <div class="sec-label">🥇 استخدامات تتكرر دائماً</div>
+
+  <div class="card teal">
+    <div class="card-title" style="color:#86efac;"><div class="dot" style="background:#4ade80;"></div>الجبس باريس</div>
+    <div class="card-body">
+      <div class="row"><div class="row-val">جبائر طبية، قوالب الأسنان، تشطيب الجدران، الطباشير</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:#a5b4fc;"><div class="dot" style="background:#818cf8;"></div>السيليكا SiO₂</div>
+    <div class="card-body">
+      <div class="row"><div class="row-val">صناعة الزجاج، السيراميك، الخزف</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:#38bdf8;"><div class="dot" style="background:#38bdf8;"></div>جل السيليكا</div>
+    <div class="card-body">
+      <div class="row"><div class="row-val">عامل مجفّف (ماصّ للرطوبة) — في الأجهزة والأدوية</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:#fb923c;"><div class="dot" style="background:#fb923c;"></div>الألمنيوم</div>
+    <div class="card-body">
+      <div class="row"><div class="row-val">صناعة أجزاء الطائرات، أواني الطهي، أسلاك كهربائية</div></div>
+      <div class="row"><div class="row-key">الخام</div><div class="row-val">البوكسايت (Al₂O₃)</div></div>
+      <div class="row"><div class="row-key">السبيكة</div><div class="row-val">الديورالومين = Al + Cu + Mn + Mg</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:#f472b6;"><div class="dot" style="background:#f472b6;"></div>السماد الفوسفاتي</div>
+    <div class="card-body">
+      <div class="row"><div class="row-val">يعزز نمو الجذور، يُحسن التربة، يُساعد على التثمير</div></div>
+    </div>
+  </div>
+
+  <div class="sec-label">⚗️ كواشف الأيونات</div>
+
+  <div class="card">
+    <div class="card-body" style="padding-top:14px;">
+      <div class="row"><div class="row-key">S²⁻ كبريتيد</div><div class="row-val">Pb(NO₃)₂ → راسب <strong>أسود</strong> PbS</div></div>
+      <div class="row"><div class="row-key">Cu²⁺ نحاس</div><div class="row-val">H₂S → راسب <strong>أسود</strong> CuS</div></div>
+      <div class="row"><div class="row-key">Al³⁺ ألمنيوم</div><div class="row-val">NaOH → راسب <strong>أبيض جيلاتيني</strong> Al(OH)₃</div></div>
+      <div class="row"><div class="row-key">Cl⁻ كلوريد</div><div class="row-val">AgNO₃ → راسب <strong>أبيض</strong> AgCl</div></div>
+      <div class="row"><div class="row-key">SO₄²⁻ كبريتات</div><div class="row-val">BaCl₂ → راسب <strong>أبيض</strong> BaSO₄</div></div>
+    </div>
+  </div>
+
+  <div class="sec-label">📊 أكثر العناصر شيوعاً في القشرة الأرضية</div>
+
+  <div class="card">
+    <div class="card-body" style="padding-top:14px;">
+      <div class="row"><div class="row-key">1. الأكسجين</div><div class="row-val"><strong>46%</strong></div></div>
+      <div class="row"><div class="row-key">2. السيليكون</div><div class="row-val"><strong>28%</strong></div></div>
+      <div class="row"><div class="row-key">3. الألمنيوم</div><div class="row-val"><strong>8%</strong> — أكثر الفلزات شيوعاً</div></div>
+    </div>
+  </div>
+
+  <div class="sec-label">⚡ فروق مهمة تتكرر</div>
+
+  <div class="card">
+    <div class="card-body" style="padding-top:14px;">
+      <div class="row">
+        <div class="row-key">هابر</div>
+        <div class="row-val">تحضير <strong>الأمونيا NH₃</strong></div>
+      </div>
+      <div class="row">
+        <div class="row-key">أوستفالد</div>
+        <div class="row-val">تحضير <strong>حمض النتريك HNO₃</strong></div>
+      </div>
+      <div class="row">
+        <div class="row-key">جبس عادي</div>
+        <div class="row-val">CaSO₄ · <strong>2H₂O</strong></div>
+      </div>
+      <div class="row">
+        <div class="row-key">جبس باريس</div>
+        <div class="row-val">(CaSO₄)₂ · <strong>H₂O</strong> — تسخين 120°C</div>
+      </div>
+      <div class="row">
+        <div class="row-key">NaCl النقي</div>
+        <div class="row-val">لا يتميأ</div>
+      </div>
+      <div class="row">
+        <div class="row-key">NaCl غير النقي</div>
+        <div class="row-val">يتميأ (يحتوي CaCl₂)</div>
+      </div>
+      <div class="row">
+        <div class="row-key">لهب الصوديوم</div>
+        <div class="row-val">أصفر مشمشي</div>
+      </div>
+      <div class="row">
+        <div class="row-key">لهب الكالسيوم</div>
+        <div class="row-val">أحمر طوبي</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
