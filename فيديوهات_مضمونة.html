@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفيديوهات المضمونة — كيمياء ثالث متوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Cairo',sans-serif; background:#0f172a; color:#e2e8f0; min-height:100vh; }
+
+header {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-bottom: 2px solid #334155;
+  padding: 28px 16px 22px;
+  text-align: center;
+}
+header h1 { font-size: 22px; font-weight: 900; color: #f1f5f9; margin-bottom: 4px; }
+header p { font-size: 13px; color: #64748b; }
+
+.badge-row {
+  display: flex; justify-content: center; gap: 10px;
+  flex-wrap: wrap; margin-top: 14px;
+}
+.badge {
+  padding: 5px 14px; border-radius: 100px;
+  font-size: 12px; font-weight: 700;
+}
+.badge-red { background:#450a0a; color:#f87171; }
+.badge-green { background:#052e16; color:#4ade80; }
+.badge-blue { background:#0c1a3a; color:#60a5fa; }
+
+/* LEGEND */
+.legend {
+  max-width: 700px; margin: 20px auto 0;
+  display: flex; gap: 16px; flex-wrap: wrap;
+  padding: 0 16px; justify-content: center;
+}
+.leg-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: #94a3b8;
+}
+.leg-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+main { max-width: 700px; margin: 0 auto; padding: 20px 14px 60px; }
+
+/* PRIORITY LABEL */
+.sec-label {
+  font-size: 11px; font-weight: 900; letter-spacing: 2px;
+  color: #475569; text-transform: uppercase;
+  margin: 24px 0 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-label::after {
+  content: ''; flex: 1; height: 1px; background: #1e293b;
+}
+
+/* VIDEO CARD */
+.vcard {
+  background: #1e293b;
+  border-radius: 14px;
+  border: 1.5px solid #334155;
+  padding: 16px;
+  margin-bottom: 10px;
+  display: flex; gap: 14px; align-items: flex-start;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: default;
+}
+.vcard:hover { border-color: #3b82f6; transform: translateX(-3px); }
+
+/* PRIORITY INDICATOR */
+.priority {
+  flex-shrink: 0;
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.p-must { background: #450a0a; }
+.p-high { background: #1c1407; }
+.p-med  { background: #0c1a3a; }
+
+.vcard-body { flex: 1; }
+
+.vid-num {
+  font-size: 10px; font-weight: 800; letter-spacing: 1px;
+  color: #475569; margin-bottom: 4px;
+}
+
+.vid-title {
+  font-size: 14px; font-weight: 800; color: #f1f5f9;
+  line-height: 1.5; margin-bottom: 8px;
+}
+
+/* TAGS */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.tag {
+  font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 100px;
+}
+.tag-must { background:#450a0a; color:#f87171; }
+.tag-exam { background:#1c1407; color:#fbbf24; }
+.tag-calc { background:#0c1a3a; color:#60a5fa; }
+.tag-eq   { background:#052e16; color:#4ade80; }
+.tag-concept { background:#1a0533; color:#c084fc; }
+
+/* WHY */
+.why {
+  font-size: 12px; color: #64748b; line-height: 1.7;
+  background: #0f172a; border-radius: 8px;
+  padding: 8px 12px; border-right: 3px solid #334155;
+}
+.why strong { color: #94a3b8; }
+
+/* PRIORITY BADGE */
+.prio-badge {
+  flex-shrink: 0; align-self: center;
+  font-size: 11px; font-weight: 900;
+  padding: 4px 10px; border-radius: 8px;
+}
+.pb-must { background:#dc2626; color:white; }
+.pb-high { background:#d97706; color:white; }
+.pb-med  { background:#2563eb; color:white; }
+
+/* SUMMARY BOX */
+.summary {
+  background: linear-gradient(135deg, #052e16, #0a2010);
+  border: 1.5px solid #166534;
+  border-radius: 14px; padding: 18px;
+  margin-bottom: 24px;
+}
+.summary h3 { font-size: 15px; font-weight: 900; color: #4ade80; margin-bottom: 12px; }
+.summary-row {
+  display: flex; justify-content: space-between;
+  font-size: 13px; padding: 6px 0;
+  border-bottom: 1px solid #0f172a; color: #94a3b8;
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-row strong { color: #f1f5f9; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 الفيديوهات المضمونة بالوزاري</h1>
+  <p>كيمياء ثالث متوسط — استخرجت من تكرار أسئلة 2021–2025</p>
+  <div class="badge-row">
+    <div class="badge badge-red">🔴 مضمون 100%</div>
+    <div class="badge badge-green">🟡 مضمون 80%</div>
+    <div class="badge badge-blue">🔵 مهم 60%</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    <h3>📊 ملخص الأولويات من 35 فيديو</h3>
+    <div class="summary-row"><span>🔴 مضمون يجي كل سنة</span><strong>8 فيديوهات</strong></div>
+    <div class="summary-row"><span>🟡 يجي أغلب السنين</span><strong>6 فيديوهات</strong></div>
+    <div class="summary-row"><span>🔵 مهم تشوفه</span><strong>4 فيديوهات</strong></div>
+    <div class="summary-row"><span>⚪ اختياري / تفاصيل</span><strong>17 فيديو</strong></div>
+  </div>
+
+  <!-- ===== مضمون 100% ===== -->
+  <div class="sec-label">🔴 مضمون — يجي كل سنة بدون استثناء</div>
+
+  <div class="vcard">
+    <div class="priority p-must">⚛️</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 4</div>
+      <div class="vid-title">الترتيب والتوزيع الإلكتروني</div>
+      <div class="tags">
+        <span class="tag tag-must">مضمون 100%</span>
+        <span class="tag tag-exam">يجي كل سنة</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> سؤال الترتيب الإلكتروني موجود في كل امتحان من 2021 إلى 2025 — عنصر معين وتطلب ترتيبه + الإلكترونات غير المزدوجة + رمز لويس + الدورة والزمرة
+      </div>
+    </div>
+    <div class="prio-badge pb-must">🔴 أول</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-must">⚗️</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 11</div>
+      <div class="vid-title">طريقة حل المعادلات الكيميائية (الموازنة)</div>
+      <div class="tags">
+        <span class="tag tag-must">مضمون 100%</span>
+        <span class="tag tag-eq">معادلات</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> سؤال "أكمل وازن 2 من المعادلات" موجود في كل دور بدون استثناء — وزن SiH₄ وC₂H₄ وS+Fe وNH₃ وغيرها تتكرر
+      </div>
+    </div>
+    <div class="prio-badge pb-must">🔴 أول</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-must">🔬</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 26</div>
+      <div class="vid-title">معادلات السيليكون والسيليكا</div>
+      <div class="tags">
+        <span class="tag tag-must">مضمون 100%</span>
+        <span class="tag tag-eq">معادلات</span>
+        <span class="tag tag-exam">يجي كل سنة</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> تفاعلات السيليكون (SiO₂ + C، SiO₂ + HF، SiH₄ + O₂) تتكرر في كل امتحان — وسؤال "لماذا HF لا يُخزن بزجاج" ثابت
+      </div>
+    </div>
+    <div class="prio-badge pb-must">🔴 أول</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-must">🧪</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 19–20</div>
+      <div class="vid-title">النسبة المئوية الكتلية (المحاضرتين)</div>
+      <div class="tags">
+        <span class="tag tag-must">مضمون 100%</span>
+        <span class="tag tag-calc">حسابي</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> مسألة "خل يحتوي 4% خليك — احسب الكمية اللازمة" أو "احسب كتلة NaOH" تجي كل سنة — من 2021 إلى 2025
+      </div>
+    </div>
+    <div class="prio-badge pb-must">🔴 أول</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-must">🏗️</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 15–16–17</div>
+      <div class="vid-title">الفصل الثالث — الألمنيوم والسيليكون (المحاضرات 1–3)</div>
+      <div class="tags">
+        <span class="tag tag-must">مضمون 100%</span>
+        <span class="tag tag-exam">يجي كل سنة</span>
+        <span class="tag tag-concept">مفاهيم</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> الألمنيوم (أمفوتيري، البوكسايت، الديورالومين، التآكل) + الجبس باريس + السيليكا — تجي في كل دور في أسئلة صح/خطأ وفراغات وعلّل
+      </div>
+    </div>
+    <div class="prio-badge pb-must">🔴 أول</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-must">📋</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 7</div>
+      <div class="vid-title">الجدول الدوري — الدورة والزمرة</div>
+      <div class="tags">
+        <span class="tag tag-must">مضمون 100%</span>
+        <span class="tag tag-exam">يجي كل سنة</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> سؤال "بيّن موقع العنصر في الجدول الدوري" أو "عنصر في الزمرة الخامسة الدورة الثالثة — ما هو؟" — ثابت في كل امتحان
+      </div>
+    </div>
+    <div class="prio-badge pb-must">🔴 أول</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-must">🌿</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 28–29</div>
+      <div class="vid-title">الفصل السادس — العضوية (تصوير حديث 2026)</div>
+      <div class="tags">
+        <span class="tag tag-must">مضمون 100%</span>
+        <span class="tag tag-eq">معادلات</span>
+        <span class="tag tag-concept">مفاهيم</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> المركبات العضوية (الهيدروكربونات، الكحول، الخواص) + معادلات احتراق C₂H₄ وC₂H₅OH — تجي دائماً. وهذي أحدث نسخة 2026
+      </div>
+    </div>
+    <div class="prio-badge pb-must">🔴 أول</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-must">🔵</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 12–13</div>
+      <div class="vid-title">الفصل الثاني — المحاضرة 3 و4 (الأمونيا والكلور)</div>
+      <div class="tags">
+        <span class="tag tag-must">مضمون 100%</span>
+        <span class="tag tag-exam">يجي كل سنة</span>
+        <span class="tag tag-eq">معادلات</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> تحضير الأمونيا في المختبر + طريقة هابر + تحضير الكلور — سؤال "وضّح مع رسم الجهاز" يجي كل سنة تقريباً
+      </div>
+    </div>
+    <div class="prio-badge pb-must">🔴 أول</div>
+  </div>
+
+  <!-- ===== مضمون 80% ===== -->
+  <div class="sec-label">🟡 مضمون — يجي أغلب السنين</div>
+
+  <div class="vcard">
+    <div class="priority p-high">6️⃣</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 6</div>
+      <div class="vid-title">رمز لويس</div>
+      <div class="tags">
+        <span class="tag tag-exam">80%</span>
+        <span class="tag tag-concept">مفاهيم</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> يُطلب رسم رمز لويس للعنصر في سؤال الترتيب الإلكتروني — مرتبط مع فيديو 4
+      </div>
+    </div>
+    <div class="prio-badge pb-high">🟡 ثاني</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-high">📐</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 21–22–23</div>
+      <div class="vid-title">النسبة المئوية الحجمية + التركيز بالكتلة والحجم</div>
+      <div class="tags">
+        <span class="tag tag-exam">80%</span>
+        <span class="tag tag-calc">حسابي</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> مسألة "احسب النسبة الحجمية لخليط الخليك والماء" — جاءت 2022 و2023 وعدة دورات
+      </div>
+    </div>
+    <div class="prio-badge pb-high">🟡 ثاني</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-high">🔥</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 32–33</div>
+      <div class="vid-title">الفصل السابع — المحاضرة 1 و2</div>
+      <div class="tags">
+        <span class="tag tag-exam">80%</span>
+        <span class="tag tag-concept">مفاهيم</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> الفصل السابع (الكبريت والنيتروجين) — تجي منه أسئلة صح/خطأ وفراغات وخاصة معادلات H₂S واكتشاف الكبريتيدات
+      </div>
+    </div>
+    <div class="prio-badge pb-high">🟡 ثاني</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-high">⚡</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 8</div>
+      <div class="vid-title">الخواص الدورية وحلول أسئلة الفصل</div>
+      <div class="tags">
+        <span class="tag tag-exam">80%</span>
+        <span class="tag tag-concept">مفاهيم</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> الكهرسلبية، نصف القطر الذري، طاقة التأين — تجي في أسئلة اختر الأنسب
+      </div>
+    </div>
+    <div class="prio-badge pb-high">🟡 ثاني</div>
+  </div>
+
+  <!-- ===== مهم 60% ===== -->
+  <div class="sec-label">🔵 مهم — شوفه بعد المضمون</div>
+
+  <div class="vcard">
+    <div class="priority p-med">📝</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 9</div>
+      <div class="vid-title">المراجعة المركزة — الفصل الأول</div>
+      <div class="tags">
+        <span class="tag tag-calc">مراجعة</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> يجمع كل الفصل الأول — جيد للمراجعة السريعة قبل الامتحان
+      </div>
+    </div>
+    <div class="prio-badge pb-med">🔵 ثالث</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-med">📝</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 14</div>
+      <div class="vid-title">المراجعة المركزة — الفصل الثاني والثالث</div>
+      <div class="tags">
+        <span class="tag tag-calc">مراجعة</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> مراجعة سريعة — مفيد قبل الامتحان بأسبوع
+      </div>
+    </div>
+    <div class="prio-badge pb-med">🔵 ثالث</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-med">📝</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 31</div>
+      <div class="vid-title">المراجعة المركزة — الفصل الخامس والسادس</div>
+      <div class="tags">
+        <span class="tag tag-calc">مراجعة</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> يغطي السيليكون والعضوية دفعة واحدة — وفّر وقتك
+      </div>
+    </div>
+    <div class="prio-badge pb-med">🔵 ثالث</div>
+  </div>
+
+  <div class="vcard">
+    <div class="priority p-med">🧫</div>
+    <div class="vcard-body">
+      <div class="vid-num">فيديو 34–35</div>
+      <div class="vid-title">الفصل الثامن — المحاضرة 1 و2</div>
+      <div class="tags">
+        <span class="tag tag-concept">مفاهيم</span>
+      </div>
+      <div class="why">
+        <strong>السبب:</strong> الفصل الثامن يجي منه أسئلة أحياناً — مش في كل دور لكن لا تتركه
+      </div>
+    </div>
+    <div class="prio-badge pb-med">🔵 ثالث</div>
+  </div>
+
+  <!-- NOTE -->
+  <div style="background:#1c1407; border:1.5px solid #92400e; border-radius:14px; padding:16px; margin-top:10px;">
+    <div style="font-size:14px; font-weight:800; color:#fbbf24; margin-bottom:10px;">⚠️ ملاحظة مهمة</div>
+    <div style="font-size:13px; color:#d97706; line-height:1.9;">
+      الفيديوهات 1–3 و5 و10 و18 و24 و25 و27 و30 = <strong style="color:#fbbf24;">محاضرات تمهيدية ونظرية</strong> — فيها شرح جيد لكن المعلومات تنعكس في الفيديوهات المضمونة فوق. إذا وقتك ضيق ابدأ بالأحمر والأصفر.
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
