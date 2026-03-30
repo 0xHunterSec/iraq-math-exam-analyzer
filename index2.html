@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المواد الدراسية</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Cairo", sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1f0536, #4b0c5f); /* بنفسجي داكن يميل للسواد */
+    overflow: hidden;
+    direction: rtl;
+    color: white;
+    position: relative;
+}
+
+/* تأثير ضبابي لطيف للخلفية */
+body::before {
+    content: "";
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: #6a0dad;
+    filter: blur(250px);
+    top: -150px;
+    left: -200px;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 50px;
+    font-size: 36px;
+}
+
+/* الشبكة */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 140px);
+    gap: 25px;
+    justify-content: center;
+}
+
+/* الأزرار */
+.card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(8px);
+    padding: 25px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.4s;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.card:hover {
+    transform: translateY(-6px) scale(1.06);
+    background: rgba(107, 13, 173, 0.9);
+    box-shadow: 0 0 25px #6a0dad;
+    color: white;
+}
+
+/* دخول مع Fade */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.6s;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>اختر المادة</h1>
+
+    <div class="grid">
+        <div class="card fade-in" onclick="go('math.html')">رياضيات</div>
+        <div class="card fade-in" onclick="go('chemistry.html')">كيمياء</div>
+        <div class="card fade-in">قريباً</div>
+        <div class="card fade-in">قريباً</div>
+        <div class="card fade-in">قريباً</div>
+        <div class="card fade-in">قريباً</div>
+        <div class="card fade-in">قريباً</div>
+    </div>
+</div>
+
+<script>
+function go(page) {
+    window.location.href = page;
+}
+
+// أنيميشن دخول الأزرار
+const items = document.querySelectorAll('.fade-in');
+
+window.onload = () => {
+    items.forEach((el, i) => {
+        setTimeout(() => {
+            el.classList.add('show');
+        }, i * 150);
+    });
+};
+</script>
+
+</body>
+</html>
