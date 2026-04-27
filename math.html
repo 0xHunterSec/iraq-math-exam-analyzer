@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تحليل امتحانات الرياضيات - ثالث متوسط</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700&display=swap');
+
+  :root {
+    --primary: #1a1a2e;
+    --accent: #e94560;
+    --gold: #f5a623;
+    --green: #0f9b58;
+    --blue: #16213e;
+    --card-bg: #0f3460;
+    --text: #eaeaea;
+    --text-muted: #a0a0b0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--primary);
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    line-height: 1.7;
+    padding: 20px;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 50px 20px 40px;
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+    border-radius: 20px;
+    margin-bottom: 35px;
+    border: 1px solid #e9456033;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '📐';
+    font-size: 120px;
+    position: absolute;
+    left: -20px;
+    top: -10px;
+    opacity: 0.07;
+  }
+  .hero::after {
+    content: '📊';
+    font-size: 120px;
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    opacity: 0.07;
+  }
+
+  .hero h1 {
+    font-size: 2.2em;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero p {
+    color: var(--text-muted);
+    font-size: 1.05em;
+  }
+
+  .badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .badge {
+    background: #ffffff15;
+    border: 1px solid #ffffff25;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.85em;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* Alert Box */
+  .alert-box {
+    background: linear-gradient(135deg, #0f9b5822, #0f9b5844);
+    border: 2px solid var(--green);
+    border-radius: 14px;
+    padding: 20px 25px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .alert-box .icon { font-size: 2em; }
+  .alert-box h3 { color: var(--green); font-size: 1.15em; margin-bottom: 5px; }
+  .alert-box p { color: var(--text-muted); font-size: 0.92em; }
+
+  /* Section */
+  .section-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    margin: 35px 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Topic Cards Grid */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+
+  .topic-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #ffffff15;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .topic-card:hover { transform: translateY(-3px); }
+
+  .topic-card.hot {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, #0f3460, #1a1040);
+  }
+
+  .topic-card .hot-label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--accent);
+    color: white;
+    font-size: 0.7em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+
+  .topic-card h3 {
+    font-size: 1.05em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  .topic-card .years {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .year-tag {
+    background: #ffffff20;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.78em;
+    color: var(--gold);
+  }
+
+  .topic-card p {
+    font-size: 0.85em;
+    color: var(--text-muted);
+  }
+
+  .repeat-bar {
+    margin-top: 12px;
+    height: 6px;
+    background: #ffffff15;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .repeat-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--green), var(--gold));
+  }
+
+  .repeat-label {
+    font-size: 0.75em;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Big Table */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 14px;
+    border: 1px solid #ffffff15;
+    margin-bottom: 30px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88em;
+  }
+
+  thead tr {
+    background: var(--accent);
+  }
+
+  thead th {
+    padding: 14px 16px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 0.95em;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #ffffff10;
+    transition: background 0.15s;
+  }
+
+  tbody tr:hover { background: #ffffff08; }
+
+  tbody tr:nth-child(even) { background: #ffffff05; }
+
+  tbody td {
+    padding: 12px 16px;
+    vertical-align: top;
+  }
+
+  .check { color: var(--green); font-weight: 700; }
+  .dash { color: #444; }
+
+  /* Priority List */
+  .priority-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .priority-item {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid #ffffff10;
+  }
+
+  .priority-num {
+    min-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.1em;
+    flex-shrink: 0;
+  }
+
+  .p1 .priority-num { background: var(--accent); color: white; }
+  .p2 .priority-num { background: var(--gold); color: #111; }
+  .p3 .priority-num { background: var(--green); color: white; }
+
+  .priority-item h4 { font-size: 1em; font-weight: 700; margin-bottom: 3px; }
+  .priority-item p { font-size: 0.83em; color: var(--text-muted); }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.82em;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ffffff10;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>تحليل امتحانات <span>الرياضيات الوزارية</span></h1>
+  <p>ثالث متوسط — المواضيع المتكررة عبر السنوات</p>
+  <div class="badge-row">
+    <span class="badge">📅 2022 - 2023 - 2024 - 2025</span>
+    <span class="badge">🇮🇶 وزارة التربية العراق</span>
+    <span class="badge">📚 4 امتحانات محللة</span>
+  </div>
+</div>
+
+<!-- ALERT -->
+<div class="alert-box">
+  <span class="icon">💡</span>
+  <div>
+    <h3>كيفية الاستفادة من هذا التحليل</h3>
+    <p>المواضيع الملوّنة باللون الأحمر هي الأكثر تكراراً وظهرت في 3 امتحانات أو أكثر — ركّز عليها أولاً. المواضيع التي ظهرت مرتين تأتي بعدها في الأولوية.</p>
+  </div>
+</div>
+
+<!-- DELETIONS BOX -->
+<div style="background:linear-gradient(135deg,#3a000022,#e9456033);border:2px solid var(--accent);border-radius:14px;padding:22px 25px;margin-bottom:20px;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <span style="font-size:1.8em;">🚫</span>
+    <h3 style="color:var(--accent);font-size:1.2em;font-weight:700;">الحذوفات الرسمية لسنة 2025-2026</h3>
+  </div>
+  <p style="color:#ffaaaa;font-size:0.88em;margin-bottom:16px;">⚠️ هذه المواضيع محذوفة من المنهج — لا تضيّع وقتك في مراجعتها</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">
+
+    <div style="background:#ffffff0d;border-radius:10px;padding:14px 16px;border-right:3px solid var(--accent);">
+      <div style="font-size:0.8em;color:var(--accent);font-weight:700;margin-bottom:5px;">الفصل الأول</div>
+      <div style="font-weight:700;margin-bottom:4px;">المتتابعات — محذوفة كلياً</div>
+      <div style="font-size:0.82em;color:var(--text-muted);">المتتابعة الحسابية والهندسية وكل ما يتعلق بها</div>
+    </div>
+
+    <div style="background:#ffffff0d;border-radius:10px;padding:14px 16px;border-right:3px solid var(--accent);">
+      <div style="font-size:0.8em;color:var(--accent);font-weight:700;margin-bottom:5px;">أسئلة اختبار الفصل الأول</div>
+      <div style="font-weight:700;margin-bottom:4px;">حذف أسئلة 7 إلى 14</div>
+      <div style="font-size:0.82em;color:var(--text-muted);">يبقى فقط الأسئلة 1-6 من اختبارات الفصل الأول</div>
+    </div>
+
+    <div style="background:#ffffff0d;border-radius:10px;padding:14px 16px;border-right:3px solid var(--accent);">
+      <div style="font-size:0.8em;color:var(--accent);font-weight:700;margin-bottom:5px;">تحليل المقادر الجبري بالتجربة</div>
+      <div style="font-weight:700;margin-bottom:4px;">حذف 4 تمارين محددة</div>
+      <div style="font-size:0.82em;color:var(--text-muted);">المحذوف: 3+2z−z² و 30x²−xy−y²</div>
+    </div>
+
+    <div style="background:#ffffff0d;border-radius:10px;padding:14px 16px;border-right:3px solid var(--accent);">
+      <div style="font-size:0.8em;color:var(--accent);font-weight:700;margin-bottom:5px;">الهندسة التحليلية</div>
+      <div style="font-weight:700;margin-bottom:4px;">المستقيمات المتوازية والمتعامدة — محذوفة</div>
+      <div style="font-size:0.82em;color:var(--text-muted);">شرط التوازي والتعامد بين مستقيمين</div>
+    </div>
+
+    <div style="background:#ffffff0d;border-radius:10px;padding:14px 16px;border-right:3px solid var(--accent);">
+      <div style="font-size:0.8em;color:var(--accent);font-weight:700;margin-bottom:5px;">الهندسة التحليلية</div>
+      <div style="font-weight:700;margin-bottom:4px;">إحداثيات نقطة المنتصف والمسافة بين نقطتين — محذوفة</div>
+      <div style="font-size:0.82em;color:var(--text-muted);">قانون المسافة وقانون نقطة المنتصف</div>
+    </div>
+
+    <div style="background:#ffffff0d;border-radius:10px;padding:14px 16px;border-right:3px solid var(--accent);">
+      <div style="font-size:0.8em;color:var(--accent);font-weight:700;margin-bottom:5px;">الفصل السادس — كامل 🔴</div>
+      <div style="font-weight:700;margin-bottom:4px;">الإحصاء والاحتمالات — محذوف كلياً</div>
+      <div style="font-size:0.82em;color:var(--text-muted);">من ص 143 — يشمل التوافق والتبادل والاحتمالات والإحصاء كله</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADDITIONS BOX -->
+<div style="background:linear-gradient(135deg,#0f9b5822,#0f9b5833);border:2px solid var(--green);border-radius:14px;padding:22px 25px;margin-bottom:30px;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <span style="font-size:1.8em;">📌</span>
+    <h3 style="color:var(--green);font-size:1.2em;font-weight:700;">المواضيع المُضافة / المحددة للامتحان 2025-2026</h3>
+  </div>
+  <p style="color:#aaffcc;font-size:0.88em;margin-bottom:16px;">✅ هذه المواضيع مقررة بشكل رسمي — ركّز عليها</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">
+
+    <div style="background:#ffffff0d;border-radius:10px;padding:14px 16px;border-right:3px solid var(--green);">
+      <div style="font-size:0.8em;color:var(--green);font-weight:700;margin-bottom:5px;">الفصل الخامس — الهندسة والقياس</div>
+      <div style="font-weight:700;margin-bottom:4px;">البنود 4-5 حتى 5-5</div>
+      <div style="font-size:0.82em;color:var(--text-muted);">مع التمارين التابعة لها من اختبار الفصل</div>
+    </div>
+
+    <div style="background:#ffffff0d;border-radius:10px;padding:14px 16px;border-right:3px solid var(--green);">
+      <div style="font-size:0.8em;color:var(--green);font-weight:700;margin-bottom:5px;">أسئلة الاختيار من المتعدد</div>
+      <div style="font-weight:700;margin-bottom:4px;">ص 112 إلى 123</div>
+      <div style="font-size:0.82em;color:var(--text-muted);">راجع هذه الصفحات جيداً — مقررة رسمياً</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 1: Recurring Topics -->
+<div class="section-title">🔥 المواضيع المتكررة كل سنة (الأهم)</div>
+
+<div class="topics-grid">
+
+  <div class="topic-card hot">
+    <span class="hot-label">متكرر جداً</span>
+    <h3>حل نظام معادلتين بالتعويض أو الحذف</h3>
+    <div class="years">
+      <span class="year-tag">2022</span>
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>ظهر في كل امتحان — أحياناً بطريقة التعويض وأحياناً الحذف</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:100%"></div></div>
+    <div class="repeat-label">تكرار: 4/4 امتحانات</div>
+  </div>
+
+  <div class="topic-card hot">
+    <span class="hot-label">متكرر جداً</span>
+    <h3>التحليل إلى عوامل (Factoring)</h3>
+    <div class="years">
+      <span class="year-tag">2022</span>
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>تحليل مقادير جبرية متنوعة: مكعبات، ثلاثيات، فرق مربعين</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:100%"></div></div>
+    <div class="repeat-label">تكرار: 4/4 امتحانات</div>
+  </div>
+
+  <div class="topic-card hot">
+    <span class="hot-label">متكرر جداً</span>
+    <h3>المتتابعة الحسابية</h3>
+    <div class="years">
+      <span class="year-tag">2022</span>
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>إيجاد حد معين، حساب الأساس، كتابة حدود المتتابعة</p>
+    <div style="margin-top:10px;background:#e9456033;border:1px solid var(--accent);border-radius:8px;padding:7px 12px;font-size:0.82em;color:#ffaaaa;">
+      🚫 <strong>محذوف من منهج 2025-2026</strong> — لا تراجعه
+    </div>
+  </div>
+
+  <div class="topic-card hot">
+    <span class="hot-label">متكرر جداً</span>
+    <h3>التطبيقات (الدوال)</h3>
+    <div class="years">
+      <span class="year-tag">2022</span>
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>تحديد نوع التطبيق (شامل، متباين، تقابل) + التطبيق المركب f∘g</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:100%"></div></div>
+    <div class="repeat-label">تكرار: 4/4 امتحانات</div>
+  </div>
+
+  <div class="topic-card hot">
+    <span class="hot-label">متكرر جداً</span>
+    <h3>تبسيط الجمل العددية والجبرية (الجذور)</h3>
+    <div class="years">
+      <span class="year-tag">2022</span>
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>ترتيب العمليات، تبسيط جذور وأسس، ضرب عبارات تحتوي على جذور</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:100%"></div></div>
+    <div class="repeat-label">تكرار: 4/4 امتحانات</div>
+  </div>
+
+  <div class="topic-card hot">
+    <span class="hot-label">متكرر جداً</span>
+    <h3>المتباينات وتمثيلها على المستقيم</h3>
+    <div class="years">
+      <span class="year-tag">2022</span>
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>حل متباينات خطية وبعض المتباينات ذات القيمة المطلقة + تمثيلها</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:100%"></div></div>
+    <div class="repeat-label">تكرار: 4/4 امتحانات</div>
+  </div>
+
+  <div class="topic-card hot">
+    <span class="hot-label">متكرر جداً</span>
+    <h3>تبسيط المقادير الجبرية الكسرية</h3>
+    <div class="years">
+      <span class="year-tag">2022</span>
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>قسمة وجمع وطرح الكسور الجبرية — إيجاد أبسط صورة</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:100%"></div></div>
+    <div class="repeat-label">تكرار: 4/4 امتحانات</div>
+  </div>
+
+  <div class="topic-card hot">
+    <span class="hot-label">متكرر جداً</span>
+    <h3>المعادلات التربيعية (القانون العام / الجذر التربيعي)</h3>
+    <div class="years">
+      <span class="year-tag">2022</span>
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>حل معادلات تربيعية بالقانون العام أو قاعدة الجذر التربيعي</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:100%"></div></div>
+    <div class="repeat-label">تكرار: 4/4 امتحانات</div>
+  </div>
+
+</div>
+
+<!-- SECTION 2: Appeared in 3 Exams -->
+<div class="section-title">⭐ ظهرت في 3 امتحانات من 4</div>
+<div class="topics-grid">
+
+  <div class="topic-card">
+    <h3>المسائل التطبيقية (هندسة / مستطيل / مساحة)</h3>
+    <div class="years">
+      <span class="year-tag">2022</span>
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>مسائل كلامية تستوجب إنشاء معادلة وحلها (أبعاد شكل، مساحة...)</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:75%"></div></div>
+    <div class="repeat-label">تكرار: 3/4 امتحانات</div>
+  </div>
+
+  <div class="topic-card">
+    <h3>الاحتمالات</h3>
+    <div class="years">
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>حساب احتمال حوادث بسيطة ومركبة (نرد، ورق، اختيار)</p>
+    <div style="margin-top:10px;background:#e9456033;border:1px solid var(--accent);border-radius:8px;padding:7px 12px;font-size:0.82em;color:#ffaaaa;">
+      🚫 <strong>محذوف من منهج 2025-2026</strong> — الفصل السادس كله محذوف
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <h3>التوافيق والتباديل</h3>
+    <div class="years">
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>إيجاد عدد طرق الاختيار والترتيب — رموز C و P</p>
+    <div style="margin-top:10px;background:#e9456033;border:1px solid var(--accent);border-radius:8px;padding:7px 12px;font-size:0.82em;color:#ffaaaa;">
+      🚫 <strong>محذوف من منهج 2025-2026</strong> — لا تراجعه
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <h3>معادلة المستقيم وميله</h3>
+    <div class="years">
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>إيجاد معادلة مستقيم من نقطتين، ميل المستقيم، المقطع الصادي</p>
+    <div style="margin-top:10px;background:#f5a62322;border:1px solid var(--gold);border-radius:8px;padding:7px 12px;font-size:0.82em;color:#f5d07a;">
+      ⚠️ <strong>حذف جزئي:</strong> المتوازية والمتعامدة + نقطة المنتصف والمسافة — محذوفتان
+    </div>
+    <div class="repeat-bar" style="margin-top:8px;"><div class="repeat-bar-fill" style="width:75%"></div></div>
+    <div class="repeat-label">تكرار: 3/4 امتحانات</div>
+  </div>
+
+  <div class="topic-card">
+    <h3>المثلث القائم والنسب المثلثية</h3>
+    <div class="years">
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>sin، cos، tan وتطبيقاتها — هرم، مثلث، مستطيل</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:75%"></div></div>
+    <div class="repeat-label">تكرار: 3/4 امتحانات</div>
+  </div>
+
+  <div class="topic-card">
+    <h3>الهندسة (متوازيات، مثلثات متشابهة)</h3>
+    <div class="years">
+      <span class="year-tag">2023</span>
+      <span class="year-tag">2024</span>
+      <span class="year-tag">2025</span>
+    </div>
+    <p>برهان تشابه مثلثات، خطوط متوازية، نسب أضلاع</p>
+    <div class="repeat-bar"><div class="repeat-bar-fill" style="width:75%"></div></div>
+    <div class="repeat-label">تكرار: 3/4 امتحانات</div>
+  </div>
+
+</div>
+
+<!-- SECTION 3: Full Comparison Table -->
+<div class="section-title">📋 جدول مقارنة تفصيلي بين السنوات</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>الموضوع</th>
+        <th>2021-2022</th>
+        <th>2022-2023</th>
+        <th>2023-2024</th>
+        <th>2024-2025</th>
+        <th>مجموع التكرار</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>حل نظام معادلتين (تعويض / حذف)</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--accent)">4/4</strong></td>
+      </tr>
+      <tr>
+        <td>التحليل إلى عوامل</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--accent)">4/4</strong></td>
+      </tr>
+      <tr style="opacity:0.45;">
+        <td>المتتابعة الحسابية (إيجاد حد) <span style="background:var(--accent);color:white;font-size:0.7em;padding:1px 7px;border-radius:20px;vertical-align:middle;">محذوف ٢٠٢٥-٢٠٢٦</span></td>
+        <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+        <td><strong style="color:#888">محذوف</strong></td>
+      </tr>
+      <tr>
+        <td>الدوال والتطبيقات (نوع + مركب)</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--accent)">4/4</strong></td>
+      </tr>
+      <tr>
+        <td>تبسيط جمل جذور وأسس</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--accent)">4/4</strong></td>
+      </tr>
+      <tr>
+        <td>المتباينات + تمثيل على مستقيم</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--accent)">4/4</strong></td>
+      </tr>
+      <tr>
+        <td>تبسيط مقادير جبرية كسرية</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--accent)">4/4</strong></td>
+      </tr>
+      <tr>
+        <td>المعادلات التربيعية (قانون عام / جذر)</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--accent)">4/4</strong></td>
+      </tr>
+      <tr>
+        <td>مسائل تطبيقية (هندسة / أبعاد)</td>
+        <td class="check">✔</td>
+        <td class="dash">—</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--gold)">3/4</strong></td>
+      </tr>
+      <tr>
+        <td>الاحتمالات</td>
+        <td class="dash">—</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--gold)">3/4</strong></td>
+      </tr>
+      <tr style="opacity:0.45;">
+        <td>التوافيق والتباديل <span style="background:var(--accent);color:white;font-size:0.7em;padding:1px 7px;border-radius:20px;vertical-align:middle;">محذوف ٢٠٢٥-٢٠٢٦</span></td>
+        <td class="dash">—</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+        <td><strong style="color:#888">محذوف</strong></td>
+      </tr>
+      <tr>
+        <td>معادلة المستقيم وميله <span style="background:#f5a62399;color:#111;font-size:0.7em;padding:1px 7px;border-radius:20px;vertical-align:middle;">حذف جزئي: المتوازي والمتعامد + المنتصف والمسافة</span></td>
+        <td class="dash">—</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+        <td><strong style="color:var(--gold)">3/4 ⚠️</strong></td>
+      </tr>
+      <tr>
+        <td>النسب المثلثية (sin, cos, tan)</td>
+        <td class="dash">—</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--gold)">3/4</strong></td>
+      </tr>
+      <tr>
+        <td>الهندسة (مثلثات متشابهة / برهان)</td>
+        <td class="dash">—</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td><strong style="color:var(--gold)">3/4</strong></td>
+      </tr>
+      <tr>
+        <td>تمثيل دالة على المستوى الإحداثي</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="dash">—</td>
+        <td><strong style="color:var(--green)">3/4</strong></td>
+      </tr>
+      <tr>
+        <td>التربيع الكامل (المقدار المربع كاملاً)</td>
+        <td class="check">✔</td>
+        <td class="dash">—</td>
+        <td class="dash">—</td>
+        <td class="check">✔</td>
+        <td>2/4</td>
+      </tr>
+      <tr>
+        <td>الدائرة (الزوايا، الأوتار، المماسات)</td>
+        <td class="dash">—</td>
+        <td class="check">✔</td>
+        <td class="check">✔</td>
+        <td class="dash">—</td>
+        <td>2/4</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 4: Study Priority -->
+<div class="section-title">🎯 أولوية المراجعة للامتحان القادم</div>
+
+<div class="priority-list">
+  <div class="priority-item p1">
+    <div class="priority-num">1</div>
+    <div>
+      <h4>الأولوية القصوى — لا تتجاوز هذه المواضيع أبداً</h4>
+      <p>حل نظام معادلتين · التحليل إلى عوامل (ما عدا المحذوف) · الدوال والتطبيق المركب · تبسيط الجذور · المتباينات · تبسيط الكسور الجبرية · المعادلات التربيعية</p>
+    </div>
+  </div>
+  <div class="priority-item p2">
+    <div class="priority-num">2</div>
+    <div>
+      <h4>أولوية عالية — ظهرت في 3 امتحانات (بعد الحذف)</h4>
+      <p>معادلة المستقيم وميله (بدون متوازي/متعامد/منتصف/مسافة) · النسب المثلثية · مسائل هندسية تطبيقية · الهندسة (مثلثات متشابهة) · الفصل الخامس البنود 4-5 إلى 5-5 · أسئلة الاختيار من المتعدد ص 112-123</p>
+    </div>
+  </div>
+  <div class="priority-item p3">
+    <div class="priority-num">3</div>
+    <div>
+      <h4>أولوية متوسطة</h4>
+      <p>تمثيل الدوال على المستوى الإحداثي · التربيع الكامل · الدائرة وخصائصها</p>
+    </div>
+  </div>
+  <div style="background:#e9456015;border:1px solid var(--accent);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;">
+    <div style="min-width:40px;height:40px;border-radius:50%;background:#333;color:#888;display:flex;align-items:center;justify-content:center;font-size:1.3em;flex-shrink:0;">🚫</div>
+    <div>
+      <h4 style="color:var(--accent);">محذوف كلياً — لا تراجع</h4>
+      <p style="font-size:0.83em;color:var(--text-muted);">المتتابعات كلها · الفصل السادس كاملاً (الإحصاء والاحتمالات والتوافق والتبادل) · المستقيمات المتوازية والمتعامدة · إحداثيات نقطة المنتصف والمسافة بين نقطتين · تمارين التحليل المحددة (3+2z−z² و 30x²−xy−y²) · أسئلة 7-14 من اختبار الفصل الأول · سؤال 3 و4 من اختبار الفصل السادس</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  تحليل بناءً على 4 امتحانات وزارية: 2022، 2023، 2024، 2025 — ثالث متوسط · مادة الرياضيات · وزارة التربية العراق
+</footer>
+
+</body>
+</html>
